@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException # type: ignor
 from pathlib import Path
 import subprocess
 import json
+from report import process_analysis_result
 
 app = FastAPI()
 
@@ -50,9 +51,14 @@ async def upload_contract_file(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Slither 분석 중 오류 발생: {str(e)}")
 
-    return {
+
+    response_data = {
         "message": "파일 업로드 및 Slither 분석 성공",
         "filename": file.filename,
         "prompt": prompt,
         "result_json_file": str(analysis_result_path)
     }
+    
+    process_analysis_result(response_data)
+    
+    return response_data
