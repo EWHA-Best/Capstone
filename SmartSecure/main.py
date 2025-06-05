@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException # type: ignore
 from pathlib import Path
 import subprocess
 import json
@@ -12,7 +12,8 @@ RESULT_DIR = Path("results")
 RESULT_DIR.mkdir(exist_ok=True)
 
 def run_slither_analysis(sol_file_path: Path) -> dict:
-    solc_path = "D:/solc/solc-0.4.25.exe"
+    solc_path = "/opt/homebrew/bin/solc"
+    # solc_path = "D:/solc/solc-0.4.25.exe"
     report_path = RESULT_DIR / "result.json"
 
     if report_path.exists():
@@ -23,8 +24,8 @@ def run_slither_analysis(sol_file_path: Path) -> dict:
     )
     result = subprocess.run(cmd, shell=True)
 
-    if result.returncode != 0:
-        raise RuntimeError(f"Slither 분석 실패, 리턴코드: {result.returncode}")
+    # if result.returncode != 0:
+    #     raise RuntimeError(f"Slither 분석 실패, 리턴코드: {result.returncode}")
 
     if not report_path.exists():
         raise FileNotFoundError("Slither 결과 파일이 생성되지 않았습니다.")
