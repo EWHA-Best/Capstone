@@ -11,6 +11,11 @@ import subprocess
 import webbrowser
 import time
 import threading
+from dotenv import load_dotenv # type: ignore
+import os
+from openai import OpenAI # type: ignore
+
+load_dotenv()
 
 # ==================== Domain ====================
 
@@ -60,6 +65,51 @@ class VulnerabilityDetail:
     technical_explanation: str
     personalized_explanation: str
     reference_links: List[str]
+
+# ==================== OpenAI Integration ====================
+
+class OpenAIClient:
+    """OpenAI API 클라이언트"""
+    
+    def __init__(self):
+        self.client = OpenAI(
+            api_key=os.getenv('OPENAI_API_KEY')
+        )
+    
+    def test_prompt_analysis(self, user_prompt: str) -> str:
+        '''TEST용이야!!!!!! '''
+
+        try:
+            print(f"=== OpenAI API 테스트 시작 ===")
+            print(f"전송할 프롬프트: {user_prompt}")
+            
+            response = self.client.chat.completions.create(
+                model="gpt-4.1",
+                messages=[
+                    {
+                        "role": "system", 
+                        "content": "당신은 스마트 컨트랙트 보안 전문가입니다. 사용자의 요청을 분석하고 적절한 응답을 제공하세요."
+                    },
+                    {
+                        "role": "user", 
+                        "content": f"다음을 분석해주세요: {user_prompt}"
+                    }
+                ],
+                max_tokens=500,
+                temperature=0.25
+            )
+            
+            ai_response = response.choices[0].message.content
+            print(f"=== OpenAI 응답 ===")
+            print(ai_response)
+            print(f"=== OpenAI API 테스트 완료 ===")
+            
+            return ai_response
+            
+        except Exception as e:
+            error_msg = f"OpenAI API 호출 실패: {e}"
+            print(error_msg)
+            return error_msg
 
 # ==================== Use Cases Layer ====================
 
@@ -372,6 +422,11 @@ def process_analysis_result(response_data: Dict[str, Any]):
     print(f"파일명: {response_data['filename']}")
     print(f"프롬프트: {response_data['prompt']}") #TODO 이 사용자 프롬프트를 GPT에 넘겨서 사용 가능
     print(f"결과 파일: {response_data['result_json_file']}")
+
+    # FIXME 테스트 이후 삭제 필수!!!!! 
+    # OpenAI API 테스트 추가
+    openai_client = OpenAIClient()
+    openai_response = openai_client.test_prompt_analysis(response_data['prompt'])
     
     json_data = load_json_file(response_data['result_json_file'])
     
@@ -406,6 +461,7 @@ def process_analysis_result(response_data: Dict[str, Any]):
         threading.Thread(target=open_browser_delayed).start()
     
     print("=== 분석 결과 처리 완료 ===")
+
 
 # Stremalit 실행을 위해서 (새고 등)
 if __name__ == "__main__":
