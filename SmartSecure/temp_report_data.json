@@ -5,6 +5,385 @@
     "results": {
       "detectors": [
         {
+          "elements": [
+            {
+              "type": "function",
+              "name": "transferOwnership",
+              "source_mapping": {
+                "start": 1754,
+                "length": 98,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "is_dependency": false,
+                "lines": [
+                  67,
+                  68,
+                  69
+                ],
+                "starting_column": 3,
+                "ending_column": 4
+              },
+              "type_specific_fields": {
+                "parent": {
+                  "type": "contract",
+                  "name": "Claimable",
+                  "source_mapping": {
+                    "start": 1357,
+                    "length": 755,
+                    "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      52,
+                      53,
+                      54,
+                      55,
+                      56,
+                      57,
+                      58,
+                      59,
+                      60,
+                      61,
+                      62,
+                      63,
+                      64,
+                      65,
+                      66,
+                      67,
+                      68,
+                      69,
+                      70,
+                      71,
+                      72,
+                      73,
+                      74,
+                      75,
+                      76,
+                      77,
+                      78,
+                      79
+                    ],
+                    "starting_column": 1,
+                    "ending_column": 2
+                  }
+                },
+                "signature": "transferOwnership(address)"
+              }
+            },
+            {
+              "type": "node",
+              "name": "pendingOwner = newOwner",
+              "source_mapping": {
+                "start": 1823,
+                "length": 23,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "is_dependency": false,
+                "lines": [
+                  68
+                ],
+                "starting_column": 5,
+                "ending_column": 28
+              },
+              "type_specific_fields": {
+                "parent": {
+                  "type": "function",
+                  "name": "transferOwnership",
+                  "source_mapping": {
+                    "start": 1754,
+                    "length": 98,
+                    "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      67,
+                      68,
+                      69
+                    ],
+                    "starting_column": 3,
+                    "ending_column": 4
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "contract",
+                      "name": "Claimable",
+                      "source_mapping": {
+                        "start": 1357,
+                        "length": 755,
+                        "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          52,
+                          53,
+                          54,
+                          55,
+                          56,
+                          57,
+                          58,
+                          59,
+                          60,
+                          61,
+                          62,
+                          63,
+                          64,
+                          65,
+                          66,
+                          67,
+                          68,
+                          69,
+                          70,
+                          71,
+                          72,
+                          73,
+                          74,
+                          75,
+                          76,
+                          77,
+                          78,
+                          79
+                        ],
+                        "starting_column": 1,
+                        "ending_column": 2
+                      }
+                    },
+                    "signature": "transferOwnership(address)"
+                  }
+                }
+              }
+            }
+          ],
+          "description": "Claimable.transferOwnership(address) (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#67-69) should emit an event for: \n\t- pendingOwner = newOwner (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#68) \n",
+          "markdown": "[Claimable.transferOwnership(address)](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L67-L69) should emit an event for: \n\t- [pendingOwner = newOwner](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L68) \n",
+          "first_markdown_element": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L67-L69",
+          "id": "00bbea91175318bb7743b3f582fe7f2580707c6de1bf4091d331087b33cbc053",
+          "check": "events-access",
+          "impact": "Low",
+          "confidence": "Medium"
+        },
+        {
+          "elements": [
+            {
+              "type": "variable",
+              "name": "newOwner",
+              "source_mapping": {
+                "start": 1781,
+                "length": 16,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "is_dependency": false,
+                "lines": [
+                  67
+                ],
+                "starting_column": 30,
+                "ending_column": 46
+              },
+              "type_specific_fields": {
+                "parent": {
+                  "type": "function",
+                  "name": "transferOwnership",
+                  "source_mapping": {
+                    "start": 1754,
+                    "length": 98,
+                    "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      67,
+                      68,
+                      69
+                    ],
+                    "starting_column": 3,
+                    "ending_column": 4
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "contract",
+                      "name": "Claimable",
+                      "source_mapping": {
+                        "start": 1357,
+                        "length": 755,
+                        "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          52,
+                          53,
+                          54,
+                          55,
+                          56,
+                          57,
+                          58,
+                          59,
+                          60,
+                          61,
+                          62,
+                          63,
+                          64,
+                          65,
+                          66,
+                          67,
+                          68,
+                          69,
+                          70,
+                          71,
+                          72,
+                          73,
+                          74,
+                          75,
+                          76,
+                          77,
+                          78,
+                          79
+                        ],
+                        "starting_column": 1,
+                        "ending_column": 2
+                      }
+                    },
+                    "signature": "transferOwnership(address)"
+                  }
+                }
+              }
+            },
+            {
+              "type": "node",
+              "name": "pendingOwner = newOwner",
+              "source_mapping": {
+                "start": 1823,
+                "length": 23,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "is_dependency": false,
+                "lines": [
+                  68
+                ],
+                "starting_column": 5,
+                "ending_column": 28
+              },
+              "type_specific_fields": {
+                "parent": {
+                  "type": "function",
+                  "name": "transferOwnership",
+                  "source_mapping": {
+                    "start": 1754,
+                    "length": 98,
+                    "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      67,
+                      68,
+                      69
+                    ],
+                    "starting_column": 3,
+                    "ending_column": 4
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "contract",
+                      "name": "Claimable",
+                      "source_mapping": {
+                        "start": 1357,
+                        "length": 755,
+                        "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          52,
+                          53,
+                          54,
+                          55,
+                          56,
+                          57,
+                          58,
+                          59,
+                          60,
+                          61,
+                          62,
+                          63,
+                          64,
+                          65,
+                          66,
+                          67,
+                          68,
+                          69,
+                          70,
+                          71,
+                          72,
+                          73,
+                          74,
+                          75,
+                          76,
+                          77,
+                          78,
+                          79
+                        ],
+                        "starting_column": 1,
+                        "ending_column": 2
+                      }
+                    },
+                    "signature": "transferOwnership(address)"
+                  }
+                }
+              }
+            }
+          ],
+          "description": "Claimable.transferOwnership(address).newOwner (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#67) lacks a zero-check on :\n\t\t- pendingOwner = newOwner (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#68)\n",
+          "markdown": "[Claimable.transferOwnership(address).newOwner](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L67) lacks a zero-check on :\n\t\t- [pendingOwner = newOwner](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L68)\n",
+          "first_markdown_element": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L67",
+          "id": "3eeede36ef7a519a43d5adcd20e9236947a3a79c53f637c173b5c20a4e65992f",
+          "check": "missing-zero-check",
+          "impact": "Low",
+          "confidence": "Medium"
+        },
+        {
+          "elements": [
+            {
+              "type": "pragma",
+              "name": "^0.4.23",
+              "source_mapping": {
+                "start": 0,
+                "length": 24,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "is_dependency": false,
+                "lines": [
+                  1
+                ],
+                "starting_column": 1,
+                "ending_column": 25
+              },
+              "type_specific_fields": {
+                "directive": [
+                  "solidity",
+                  "^",
+                  "0.4",
+                  ".23"
+                ]
+              }
+            }
+          ],
+          "description": "Version constraint ^0.4.23 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor_0.4.x\n\t- IncorrectEventSignatureInLibraries_0.4.x\n\t- ABIEncoderV2PackedStorage_0.4.x\n\t- ExpExponentCleanup\n\t- EventStructWrongData.\nIt is used by:\n\t- ^0.4.23 (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#1)\n",
+          "markdown": "Version constraint ^0.4.23 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor_0.4.x\n\t- IncorrectEventSignatureInLibraries_0.4.x\n\t- ABIEncoderV2PackedStorage_0.4.x\n\t- ExpExponentCleanup\n\t- EventStructWrongData.\nIt is used by:\n\t- [^0.4.23](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L1)\n",
+          "first_markdown_element": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L1",
+          "id": "82a165c2199ecbaec8b24af388f6f57a9a10c16a84acd4899dd1d4f3b9c03ad7",
+          "check": "solc-version",
+          "impact": "Informational",
+          "confidence": "High"
+        },
+        {
           "elements": [],
           "description": "solc-0.4.25 is an outdated solc version. Use a more recent version (at least 0.8.0), if possible.\n",
           "markdown": "solc-0.4.25 is an outdated solc version. Use a more recent version (at least 0.8.0), if possible.\n",
@@ -17,81 +396,244 @@
         {
           "elements": [
             {
-              "type": "pragma",
-              "name": "0.4.25",
+              "type": "variable",
+              "name": "_notice",
               "source_mapping": {
-                "start": 151,
-                "length": 23,
-                "filename_relative": "uploaded_contracts/arithmetic3.sol",
-                "filename_absolute": "/Users/hyegyo/personal/Programming/Project/EWHA-Capston/Capstone/SmartSecure/uploaded_contracts/arithmetic3.sol",
-                "filename_short": "uploaded_contracts/arithmetic3.sol",
+                "start": 2521,
+                "length": 14,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
                 "is_dependency": false,
                 "lines": [
-                  7
+                  92
                 ],
-                "starting_column": 1,
-                "ending_column": 24
+                "starting_column": 43,
+                "ending_column": 57
               },
               "type_specific_fields": {
-                "directive": [
-                  "solidity",
-                  "0.4",
-                  ".25"
-                ]
+                "parent": {
+                  "type": "function",
+                  "name": "pauseAllTokens",
+                  "source_mapping": {
+                    "start": 2483,
+                    "length": 147,
+                    "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      92,
+                      93,
+                      94,
+                      95
+                    ],
+                    "starting_column": 5,
+                    "ending_column": 6
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "contract",
+                      "name": "GlobalPause",
+                      "source_mapping": {
+                        "start": 2366,
+                        "length": 372,
+                        "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          88,
+                          89,
+                          90,
+                          91,
+                          92,
+                          93,
+                          94,
+                          95,
+                          96,
+                          97,
+                          98,
+                          99,
+                          100,
+                          101
+                        ],
+                        "starting_column": 1,
+                        "ending_column": 0
+                      }
+                    },
+                    "signature": "pauseAllTokens(bool,string)"
+                  }
+                }
+              },
+              "additional_fields": {
+                "target": "parameter",
+                "convention": "mixedCase"
               }
             }
           ],
-          "description": "Version constraint 0.4.25 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor_0.4.x\n\t- IncorrectEventSignatureInLibraries_0.4.x\n\t- ABIEncoderV2PackedStorage_0.4.x.\nIt is used by:\n\t- 0.4.25 (uploaded_contracts/arithmetic3.sol#7)\n",
-          "markdown": "Version constraint 0.4.25 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor_0.4.x\n\t- IncorrectEventSignatureInLibraries_0.4.x\n\t- ABIEncoderV2PackedStorage_0.4.x.\nIt is used by:\n\t- [0.4.25](uploaded_contracts/arithmetic3.sol#L7)\n",
-          "first_markdown_element": "uploaded_contracts/arithmetic3.sol#L7",
-          "id": "e0b6def1ee5647711a0f1a1d3de952da6abf9f34058b246ebc0d2795fe6f95d1",
-          "check": "solc-version",
+          "description": "Parameter GlobalPause.pauseAllTokens(bool,string)._notice (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#92) is not in mixedCase\n",
+          "markdown": "Parameter [GlobalPause.pauseAllTokens(bool,string)._notice](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L92) is not in mixedCase\n",
+          "first_markdown_element": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L92",
+          "id": "58162858f602a39574a4585217f5dbb3f12c2a22c6f93ccb31931437325d6c6b",
+          "check": "naming-convention",
           "impact": "Informational",
           "confidence": "High"
         },
         {
           "elements": [
             {
-              "type": "contract",
-              "name": "Overflow_Add",
+              "type": "variable",
+              "name": "_status",
               "source_mapping": {
-                "start": 176,
-                "length": 169,
-                "filename_relative": "uploaded_contracts/arithmetic3.sol",
-                "filename_absolute": "/Users/hyegyo/personal/Programming/Project/EWHA-Capston/Capstone/SmartSecure/uploaded_contracts/arithmetic3.sol",
-                "filename_short": "uploaded_contracts/arithmetic3.sol",
+                "start": 2507,
+                "length": 12,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
                 "is_dependency": false,
                 "lines": [
-                  9,
-                  10,
-                  11,
-                  12,
-                  13,
-                  14,
-                  15,
-                  16,
-                  17
+                  92
                 ],
-                "starting_column": 1,
-                "ending_column": 0
+                "starting_column": 29,
+                "ending_column": 41
+              },
+              "type_specific_fields": {
+                "parent": {
+                  "type": "function",
+                  "name": "pauseAllTokens",
+                  "source_mapping": {
+                    "start": 2483,
+                    "length": 147,
+                    "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      92,
+                      93,
+                      94,
+                      95
+                    ],
+                    "starting_column": 5,
+                    "ending_column": 6
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "contract",
+                      "name": "GlobalPause",
+                      "source_mapping": {
+                        "start": 2366,
+                        "length": 372,
+                        "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          88,
+                          89,
+                          90,
+                          91,
+                          92,
+                          93,
+                          94,
+                          95,
+                          96,
+                          97,
+                          98,
+                          99,
+                          100,
+                          101
+                        ],
+                        "starting_column": 1,
+                        "ending_column": 0
+                      }
+                    },
+                    "signature": "pauseAllTokens(bool,string)"
+                  }
+                }
               },
               "additional_fields": {
-                "target": "contract",
-                "convention": "CapWords"
+                "target": "parameter",
+                "convention": "mixedCase"
               }
             }
           ],
-          "description": "Contract Overflow_Add (uploaded_contracts/arithmetic3.sol#9-17) is not in CapWords\n",
-          "markdown": "Contract [Overflow_Add](uploaded_contracts/arithmetic3.sol#L9-L17) is not in CapWords\n",
-          "first_markdown_element": "uploaded_contracts/arithmetic3.sol#L9-L17",
-          "id": "b7c002f46cc17058332237275c6978c4d3d9970671b72da2f5d2a1de87b5acbc",
+          "description": "Parameter GlobalPause.pauseAllTokens(bool,string)._status (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#92) is not in mixedCase\n",
+          "markdown": "Parameter [GlobalPause.pauseAllTokens(bool,string)._status](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L92) is not in mixedCase\n",
+          "first_markdown_element": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L92",
+          "id": "5f560a6f92c3f23be9a5f215530f62b7a355d9f184ffcf6b1c13c7e718d3a1a3",
           "check": "naming-convention",
           "impact": "Informational",
+          "confidence": "High"
+        },
+        {
+          "elements": [
+            {
+              "type": "function",
+              "name": "pauseAllTokens",
+              "source_mapping": {
+                "start": 2483,
+                "length": 147,
+                "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                "is_dependency": false,
+                "lines": [
+                  92,
+                  93,
+                  94,
+                  95
+                ],
+                "starting_column": 5,
+                "ending_column": 6
+              },
+              "type_specific_fields": {
+                "parent": {
+                  "type": "contract",
+                  "name": "GlobalPause",
+                  "source_mapping": {
+                    "start": 2366,
+                    "length": 372,
+                    "filename_relative": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_absolute": "C:/program_Wonjoo/Capstone/SmartSecure/uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "filename_short": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      88,
+                      89,
+                      90,
+                      91,
+                      92,
+                      93,
+                      94,
+                      95,
+                      96,
+                      97,
+                      98,
+                      99,
+                      100,
+                      101
+                    ],
+                    "starting_column": 1,
+                    "ending_column": 0
+                  }
+                },
+                "signature": "pauseAllTokens(bool,string)"
+              }
+            }
+          ],
+          "description": "pauseAllTokens(bool,string) should be declared external:\n\t- GlobalPause.pauseAllTokens(bool,string) (uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#92-95)\n",
+          "markdown": "pauseAllTokens(bool,string) should be declared external:\n\t- [GlobalPause.pauseAllTokens(bool,string)](uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L92-L95)\n",
+          "first_markdown_element": "uploaded_contracts/0x0000000000027f6d87be8ade118d9ee56767d993.sol#L92-L95",
+          "id": "79a472d3bbb89c35c6aaa9071e5286a9f5e4e8b5070b1bc775b14a077b31eb71",
+          "check": "external-function",
+          "impact": "Optimization",
           "confidence": "High"
         }
       ]
     }
   },
-  "user_prompt": "나는 NFT 스마트 계약ㅇ르 할거야",
-  "filename": "arithmetic3.sol"
+  "user_prompt": "독서 애호가 커뮤니티 웹서비스를 운영하는 스타트업. 이번에 커뮤니티 토큰으로 아이콘, 배지 등을 구매할 수 있는 기능을 추가하려고 한다.",
+  "filename": "0x0000000000027f6d87be8ade118d9ee56767d993.sol"
 }
