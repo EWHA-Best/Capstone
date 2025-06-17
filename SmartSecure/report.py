@@ -11,6 +11,7 @@ import subprocess
 import webbrowser
 import time
 import threading
+from gpt import OpenAIClient
 
 # ==================== Domain ====================
 
@@ -40,6 +41,12 @@ class Vulnerability:
             self.elements = []
 
 @dataclass
+class Vulnerability_GPT:
+    id: str
+    title: str
+    explanation: str
+
+@dataclass
 class SecurityScore:
     total_score: float
     impact_counts: Dict[str, int]
@@ -52,7 +59,11 @@ class ReportSummary:
     security_score: float
     main_concerns: List[str]
     user_prompt: str
-
+    summary_contents: str
+    
+    def __init__(self, summary_str):
+        self.summary_contents = summary_str
+    
 @dataclass
 class VulnerabilityDetail:
     vulnerability: Vulnerability
@@ -141,14 +152,11 @@ class VulnerabilityDetailProcessor:
     """취약점 상세 정보 처리 로직"""
     
     @staticmethod
-    def process(vulnerability: Vulnerability, raw_data: Dict) -> VulnerabilityDetail:
+    def process(vulnerability: Vulnerability, raw_data: Dict, vulnerability_gpt: Vulnerability_GPT) -> VulnerabilityDetail:
         code_locations = VulnerabilityDetailProcessor._extract_code_locations(raw_data)
-        
-        # TODO GPT 연결
-        technical_explanation = f"이 취약점은 {vulnerability.check} 유형으로, {vulnerability.impact} 수준의 위험도를 가집니다. (GPT 연결, 설명 보완 예정)"
-        
-        # TODO 맞춤형 설명 GPT 연결
-        personalized_explanation = "맞춤형 설명! (GPT 연동 예정)"
+
+        technical_explanation = f"이 취약점은 {vulnerability.check} ({vulnerability_gpt.title}) 유형으로, {vulnerability.impact} 수준의 위험도를 가집니다."
+        personalized_explanation = vulnerability_gpt.explanation
         
         reference_links = VulnerabilityDetailProcessor._get_reference_links(vulnerability.check)
         
@@ -208,6 +216,23 @@ class SlitherDataParser:
         
         return vulnerabilities, raw_detectors
 
+class GPTDataParser:
+    """GPT 결과 중 detectors 파싱"""
+    
+    @staticmethod
+    def parse(detectors_gpt: Dict) -> List[Vulnerability_GPT]:
+        vulnerabilities_gpt = []
+        
+        for detector in detectors_gpt:
+            vulnerability_gpt = Vulnerability_GPT(
+                id=detector.get('id', 'None'),
+                title=detector.get('title', 'Unknown'),
+                explanation=detector.get('explanation', 'Unknown'),
+            )
+            vulnerabilities_gpt.append(vulnerability_gpt)
+        
+        return vulnerabilities_gpt
+
 # ==================== Presentation Layer : Streamlit 화면 구성 코드!!! ====================
 
 class StreamlitReportRenderer:
@@ -223,14 +248,7 @@ class StreamlitReportRenderer:
     @staticmethod
     def render_summary_section(summary: ReportSummary):
         st.header("보고서 요약")
-        
-        #TODO GPT 연결
-        summary_text = f"""
-        GPT 연동 후 채워질 예정
-        
-        """
-        
-        st.markdown(summary_text)
+        st.markdown(summary.summary_contents)
     
     @staticmethod
     def render_vulnerabilities_section(vulnerability_details: List[VulnerabilityDetail]):
@@ -296,30 +314,33 @@ class ReportService:
     
     def __init__(self):
         self.data_parser = SlitherDataParser()
+        self.gpt_data_parser = GPTDataParser()
         self.score_calculator = SecurityScoreCalculator()
         self.prioritizer = VulnerabilityPrioritizer()
         self.detail_processor = VulnerabilityDetailProcessor()
         self.renderer = StreamlitReportRenderer()
     
-    def generate_report(self, json_data: Dict, user_prompt: str):
+    def generate_report(self, json_data: Dict, user_prompt: str, summary_gpt: str, detectors_gpt: Dict):
         
         # 데이터 파싱
         vulnerabilities, raw_detectors = self.data_parser.parse(json_data)
         
         # 보안 점수 계산
         security_score = self.score_calculator.calculate(vulnerabilities)
+        summary = ReportSummary(summary_gpt)
         
-        # 취약점 우선순위 정렬 #필요 없을 지도
-        sorted_vulnerabilities = self.prioritizer.sort_by_priority(vulnerabilities)
-        
-        # Summary 생성
-        # TODO GPT 연결, 위에 따로 함수로 만들어놓음
-        summary ="GPT 연결 후 요약본 생성 예정"
+        # 취약점 우선순위 정렬 #필요 없음 # 그리고 정렬할 거면 vulnerabilities 말고 raw랑 gpt 결과도 같이 해야.
+        # sorted_vulnerabilities = self.prioritizer.sort_by_priority(vulnerabilities)
+
+        # GPT 결과 파싱
+        vulnerabilities_gpt = self.gpt_data_parser.parse(detectors_gpt)
         
         # 취약점 상세 정보 처리
         vulnerability_details = []
-        for vuln, raw in zip(sorted_vulnerabilities, raw_detectors):
-            detail = self.detail_processor.process(vuln, raw)
+        # for vuln, raw in zip(sorted_vulnerabilities, raw_detectors):
+        for vuln, raw, gpt in zip(vulnerabilities, raw_detectors, vulnerabilities_gpt):
+            assert vuln.id == gpt.id # FIXME 디버깅 끝나면 삭제
+            detail = self.detail_processor.process(vuln, raw, gpt)
             vulnerability_details.append(detail)
         
         # Streamlit 렌더링
@@ -370,7 +391,7 @@ def process_analysis_result(response_data: Dict[str, Any]):
     
     print("=== 분석 결과 처리 시작 ===")
     print(f"파일명: {response_data['filename']}")
-    print(f"프롬프트: {response_data['prompt']}") #TODO 이 사용자 프롬프트를 GPT에 넘겨서 사용 가능
+    print(f"프롬프트: {response_data['prompt']}")
     print(f"결과 파일: {response_data['result_json_file']}")
     
     json_data = load_json_file(response_data['result_json_file'])
@@ -384,11 +405,21 @@ def process_analysis_result(response_data: Dict[str, Any]):
         print(json_data['error'])
         return
     
+    # OpenAI API 연결
+    openai_client = OpenAIClient()
+    openai_response = openai_client.prompt_analysis(json_data, response_data['prompt'])
+    
+    # OpenAI API 호출 에러 대비
+    if openai_response is None:
+        return
+    
     # 보고서 데이터를 임시 파일에 저장 (Streamlit에서 읽기 위해)
     report_data = {
         'json_data': json_data,
         'user_prompt': response_data['prompt'],
-        'filename': response_data['filename']
+        'filename': response_data['filename'],
+        'summary_gpt': openai_response['summary'],
+        'detectors_gpt': openai_response['detectors'],
     }
     
     with open('temp_report_data.json', 'w', encoding='utf-8') as f:
@@ -407,6 +438,7 @@ def process_analysis_result(response_data: Dict[str, Any]):
     
     print("=== 분석 결과 처리 완료 ===")
 
+
 # Stremalit 실행을 위해서 (새고 등)
 if __name__ == "__main__":
     temp_file = Path('temp_report_data.json')
@@ -419,7 +451,9 @@ if __name__ == "__main__":
             report_service = ReportService()
             report_service.generate_report(
                 report_data['json_data'], 
-                report_data['user_prompt']
+                report_data['user_prompt'],
+                report_data['summary_gpt'],
+                report_data['detectors_gpt']
             )
             
         except Exception as e:
