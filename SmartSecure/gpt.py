@@ -1,3 +1,4 @@
+import json
 from typing import Dict, List, Any, Optional
 from dotenv import load_dotenv # type: ignore
 import os
@@ -19,8 +20,8 @@ class OpenAIClient:
 
 
                                 # 맥락1
-                                주어진 보안 취약점 점검 결과를 json_obj라고 하면,
-                                각 보안 취약점의 유형은 json_obj["results"]["detectors"][i]["check"]에서 확인할 수 있습니다.
+                                주어진 보안 취약점 점검 결과를 json_data라고 하면, (자료형: python dict)
+                                각 보안 취약점의 유형은 json_data["results"]["detectors"][i]["check"]에서 확인할 수 있습니다.
                                 각 유형에 대한 설명은 https://github.com/crytic/slither/wiki/Detector-Documentation 를 참고하세요.
 
 
@@ -35,20 +36,20 @@ class OpenAIClient:
                                 # 지시
                                 레포트의 구성요소를 json object 형태로 작성하세요.
                                 {
-                                detectors: [
+                                "detectors": [
                                     {
-                                        "id": "json_obj["results"]["detectors"][i]["id"] value 그대로",
-                                        "type": "json_obj["results"]["detectors"][i]["check"] value 그대로",
+                                        "id": "json_data["results"]["detectors"][i]["id"] value 그대로",
+                                        "type": "json_data["results"]["detectors"][i]["check"] value 그대로",
                                         "title": "type을 한국어로 번역",
-                                        "impact": "json_obj["results"]["detectors"][i]["impact"] value 그대로",
+                                        "impact": "json_data["results"]["detectors"][i]["impact"] value 그대로",
                                         "explanation": "이 유형의 취약점에 대한 비전문가도 이해하기 쉬운 설명. 간단해야 함. 사용자의 서비스 목적에 기반하여 어떤 피해가 발생할 수 있는지 예시 포함.",
                                     },
                                 ],
-                                summary: "5줄 이내의 요약"
+                                "summary": "5줄 이내의 요약"
                                 }
                             """
     
-    def prompt_analysis(self, json_data: Dict, user_prompt: str) -> str:
+    def prompt_analysis(self, json_data: Dict, user_prompt: str) -> Optional[Dict]:
         try:
             print(f"=== OpenAI API 호출 시작 ===")
             
@@ -64,13 +65,16 @@ class OpenAIClient:
                         "content": f"1. 보안 취약점 점검 결과:\n{str(json_data)}\n\n2. 사용자의 서비스 목적:\n{user_prompt}" # TODO json_data 가공해야 할지도
                     }
                 ],
+                response_format={"type": "json_object"},
                 max_tokens=2000,
                 temperature=0.25
             )
             
-            ai_response = response.choices[0].message.content
+            ai_response = json.loads(response.choices[0].message.content)
             
-            print(f"=== OpenAI 응답 test ===\n{ai_response}") # FIXME 연결 확인 test 후 지우기
+            # # Test: 응답 확인
+            # print(f"=== OpenAI API 응답 ===")
+            # print(ai_response)
             
             print(f"=== OpenAI API 호출 완료 ===")
             
@@ -79,4 +83,4 @@ class OpenAIClient:
         except Exception as e:
             error_msg = f"OpenAI API 호출 실패: {e}"
             print(error_msg)
-            return error_msg
+            return
