@@ -371,13 +371,8 @@ def process_analysis_result(response_data: Dict[str, Any]):
     
     print("=== 분석 결과 처리 시작 ===")
     print(f"파일명: {response_data['filename']}")
-    print(f"프롬프트: {response_data['prompt']}") #TODO 이 사용자 프롬프트를 GPT에 넘겨서 사용 가능
+    print(f"프롬프트: {response_data['prompt']}")
     print(f"결과 파일: {response_data['result_json_file']}")
-
-    # FIXME 테스트 이후 삭제 필수!!!!! 
-    # OpenAI API 테스트 추가
-    openai_client = OpenAIClient()
-    openai_response = openai_client.test_prompt_analysis(response_data['prompt'])
     
     json_data = load_json_file(response_data['result_json_file'])
     
@@ -390,11 +385,16 @@ def process_analysis_result(response_data: Dict[str, Any]):
         print(json_data['error'])
         return
     
+    # OpenAI API 연결
+    openai_client = OpenAIClient()
+    openai_response = openai_client.prompt_analysis(json_data, response_data['prompt'])
+    
     # 보고서 데이터를 임시 파일에 저장 (Streamlit에서 읽기 위해)
     report_data = {
         'json_data': json_data,
         'user_prompt': response_data['prompt'],
-        'filename': response_data['filename']
+        'filename': response_data['filename'],
+        'openai_response': openai_response, # TODO 결과 저장
     }
     
     with open('temp_report_data.json', 'w', encoding='utf-8') as f:

@@ -13,7 +13,7 @@ RESULT_DIR = Path("results")
 RESULT_DIR.mkdir(exist_ok=True)
 
 def run_slither_analysis(sol_file_path: Path) -> dict:
-    solc_path = "C:\program_Wonjoo\solidity-windows\solc_0.4.25\solc.exe"
+    solc_path = "C:/program_Wonjoo/solidity-windows/solc_0.4.25/solc.exe"
     # solc_path = "/opt/homebrew/bin/solc"
     # solc_path = "D:/solc/solc-0.4.25.exe"
     report_path = RESULT_DIR / "result.json"
