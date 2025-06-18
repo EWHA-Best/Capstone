@@ -61,7 +61,7 @@ SmartSecure/
 
 ---
 
-### 2. report.py — Streamlit 기반 UI
+### 2. report.py — Streamlit 기반 보안 Report UI
 
 - 보안 점수 및 배포 권장 여부 시각화  
 - Plotly Pie 차트로 취약점 위험도 분포 표현  
@@ -71,7 +71,7 @@ SmartSecure/
 
 ---
 
-### 3. main.py — 분석 파이프라인 실행
+### 3. main.py — 스마트 컨트랙트 보안 분석 실행
 
 - Slither를 이용한 스마트 컨트랙트 취약점 분석 자동화  
 - 분석 결과를 `result.json`으로 저장 및 로드  
