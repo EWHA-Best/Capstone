@@ -33,17 +33,18 @@ Slither 기반 보안 검사 결과를 OpenAI GPT-4 API로 해석하여 비전�
 
 ```
 
-SmartSecure/
-├── gpt.py                 # OpenAI GPT API 연동 및 취약점 분석 리포트 생성 로직
-├── main.py                # 스마트 컨트랙트 업로드 및 Slither 실행 후 결과 처리 API
-├── report.py              # Streamlit UI 구성, 분석 리포트 시각화
-├── results/
-│   ├── result.json        # Slither 분석 결과 JSON 파일
-├── uploaded\_contracts/   # 분석 대상 스마트 컨트랙트 코드 파일
+Capstone/
 ├── .gitignore
 ├── GroundRule.md          # 팀 그라운드룰
 ├── README.md              # 프로젝트 설명 문서
 └── 프롬프트                # OpenAI API에 사용하는 프롬프트 예시 텍스트 파일
+└── SmartSecure/
+    ├── gpt.py                 # OpenAI GPT API 연동 및 취약점 분석 리포트 생성 로직
+    ├── main.py                # 스마트 컨트랙트 업로드 및 Slither 실행 후 결과 처리 API
+    ├── report.py              # Streamlit UI 구성, 분석 리포트 시각화
+    ├── results/
+    │   └── result.json        # Slither 분석 결과 JSON 파일
+    └── uploaded_contracts/    # 분석 대상 스마트 컨트랙트 코드 파일
 
 ````
 
