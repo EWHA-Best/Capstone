@@ -3,8 +3,11 @@ from pathlib import Path
 import subprocess
 import json
 from report import process_analysis_result
-
+from dotenv import load_dotenv
+import os 
 app = FastAPI()
+
+load_dotenv()
 
 UPLOAD_DIR = Path("uploaded_contracts")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -13,9 +16,10 @@ RESULT_DIR = Path("results")
 RESULT_DIR.mkdir(exist_ok=True)
 
 def run_slither_analysis(sol_file_path: Path) -> dict:
-    solc_path = "C:/program_Wonjoo/solidity-windows/solc_0.4.25/solc.exe"
-    # solc_path = "/opt/homebrew/bin/solc"
-    # solc_path = "D:/solc/solc-0.4.25.exe"
+    solc_path = os.getenv('SOLC_PATH')
+    # SOLC_PATH = "C:/program_Wonjoo/solidity-windows/solc_0.4.25/solc.exe
+    # SOLC_PATH = "/opt/homebrew/bin/solc"
+    # SOLC_PATH = "D:/solc/solc-0.4.25.exe"
     report_path = RESULT_DIR / "result.json"
 
     if report_path.exists():

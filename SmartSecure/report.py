@@ -240,73 +240,247 @@ class StreamlitReportRenderer:
     
     @staticmethod
     def render_security_score_section(security_score: SecurityScore):
-        
-        st.metric("보안 점수", f"{security_score.total_score}/100")
-        st.write(security_score.deployment_status)
-        
-    
+        st.markdown("""
+            <style>
+            .score-card {
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .score-title {
+                font-size: 24px;
+                font-weight: 600;
+                color: #FFFFFF;
+                margin-bottom: 10px;
+            }
+            .score-highlight {
+                font-size: 32px;
+                font-weight: 700;
+                color: #2563eb;
+            }
+            .deployment-status {
+                font-size: 18px;
+                font-weight: 500;
+                margin-top: 10px;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns([1, 2])
+
+        with col1:
+            with st.container():
+                st.markdown('<div class="score-title">보안 점수</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="score-highlight">{security_score.total_score} / 100</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('<div class="score-title">배포 권장 여부</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+                status = security_score.deployment_status
+                if "권장" in status:
+                    st.success(f"✅ {status}")
+                elif "주의" in status:
+                    st.warning(f"⚠️ {status}")
+                elif "금지" in status:
+                    st.error(f"⛔ {status}")
+                    
+                    
+
+        with col2:
+            with st.container():
+                filtered_impact_counts = {
+                    k: v for k, v in security_score.impact_counts.items() if v > 0
+                }
+
+                if filtered_impact_counts:
+                    impact_keys = list(filtered_impact_counts.keys())
+                    impact_values = list(filtered_impact_counts.values())
+                    impact_descriptions = {
+                            "High": "심각한 위험으로 빠른 조치가 반드시 필요합니다.",
+                            "Medium": "중간 정도 위험이므로 점검해야 합니다.",
+                            "Low": "위험도는 낮지만, 상황에 따라 확인해 두는 것이 좋습니다.",
+                            "Informational": "보안에 참고할 만한 정보성 내용입니다.",
+                            "Optimization": "성능을 높이기 위한 개선 권고 사항입니다."
+                        }
+                    hover_texts = [impact_descriptions.get(k, "") for k in impact_keys]
+
+                    fig = px.pie(
+                        names=impact_keys,
+                        values=impact_values,
+                        title="취약점 Impact 비율",
+                        color=impact_keys,
+                        color_discrete_map={
+                            "High": "#ef4444",
+                            "Medium": "#f59e0b",
+                            "Low": "#3b82f6",
+                            "Informational": "#10b981",
+                            "Optimization": "#a78bfa"
+                        }
+                    )
+
+                    fig.update_traces(
+                        textinfo='label+percent',
+                        textfont_size=14,
+                        pull=[0.05] * len(impact_keys),
+                        customdata=[[desc] for desc in hover_texts],
+                        domain=dict(x=[0.25, 0.75], y=[0.1, 0.9]),
+                        hovertemplate="<b>%{label}</b><br>%{percent}<br>%{customdata[0]}<extra></extra>"
+                    )
+
+                    fig.update_layout(
+                        margin=dict(t=50, b=20, l=20, r=20),
+                        title=dict(
+                            text="취약점 비율",
+                            font=dict(size=24),
+                            x=0.5,
+                            xanchor='center'
+                        ),
+                        font=dict(size=12),
+                        legend=dict(
+                            font=dict(size=12),
+                            x=0.8,
+                            y=0.5,
+                            bgcolor='rgba(0,0,0,0)',
+                            bordercolor='rgba(0,0,0,0)'
+                        )
+                    )
+
+                    st.plotly_chart(
+                        fig,
+                        use_container_width=True,
+                        config={
+                            "displaylogo": False,
+                            "modeBarButtonsToRemove": ["toImage"]
+                        }
+                    )
+                else:
+                    st.info("❗ 표시할 취약점 Impact 데이터가 없습니다.")
+                st.markdown('</div>', unsafe_allow_html=True)
+
+
     @staticmethod
     def render_summary_section(summary: ReportSummary):
-        st.header("보고서 요약")
-        st.markdown(summary.summary_contents)
+        st.markdown("### 보고서 요약")
+        st.markdown(
+                    f"""
+                    <div style="
+                        background-color: rgba(0, 51, 102, 0.8);
+                        font-size: 19px;
+                        border-radius: 20px;
+                        padding: 15px;
+                        color: #d5efff;
+                        ">
+                        {summary.summary_contents}
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+
     
     @staticmethod
-    def render_vulnerabilities_section(vulnerability_details: List[VulnerabilityDetail]):
+    def render_vulnerabilities_section(vulnerability_details: list):
         st.header("발견된 취약점 상세")
         
         if not vulnerability_details:
             st.success("발견된 취약점이 없습니다.")
             return
         
-        # Impact별로 그룹화
+        # Impact 설명 추가
+        impact_descriptions = {
+            "High": "심각한 위험으로 빠른 조치가 반드시 필요합니다.",
+            "Medium": "중간 정도 위험이므로 점검해야 합니다.",
+            "Low": "위험도는 낮지만, 상황에 따라 확인해 두는 것이 좋습니다.",
+            "Informational": "보안에 참고할 만한 정보성 내용입니다.",
+            "Optimization": "성능을 높이기 위한 개선 권고 사항입니다."
+        }
+        impact_colors = {
+            "High": "#ef4444",
+            "Medium": "#f59e0b",
+            "Low": "#3b82f6",
+            "Informational": "#10b981",
+            "Optimization": "#a78bfa"
+        }
         impact_groups = {}
         for detail in vulnerability_details:
             impact = detail.vulnerability.impact
-            if impact not in impact_groups:
-                impact_groups[impact] = []
-            impact_groups[impact].append(detail)
+            impact_groups.setdefault(impact, []).append(detail)
         
-        # 탭 생성
         tab_names = [f"{impact} ({len(details)}개)" for impact, details in impact_groups.items()]
         tabs = st.tabs(tab_names)
         
         for tab, (impact, details) in zip(tabs, impact_groups.items()):
             with tab:
+                description = impact_descriptions.get(impact, "")
+                color = impact_colors.get(impact, "#cccccc")  # fallback color
+
+                st.markdown(
+                f"""
+                <div style="
+                    background-color: {color}33;
+                    border-left: 8px solid {color};
+                    padding: 20px 24px;
+                    border-radius: 10px;
+                    margin-bottom: 24px;
+                    width: 95%;
+                    line-height: 1.6;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    color: #FFFFFF;
+                ">
+                    {description}
+                </div>
+                """,
+                unsafe_allow_html=True
+                )
                 for detail in details:
                     StreamlitReportRenderer._render_vulnerability_card(detail)
-    
+
+
+    IMPACT_COLORS = {
+        "High": "#ef4444",
+        "Medium": "#f59e0b",
+        "Low": "#3b82f6",
+        "Informational": "#10b981",
+        "Optimization": "#a78bfa"
+    }
+
+
     @staticmethod
-    def _render_vulnerability_card(detail: VulnerabilityDetail):
-       
+    def _render_vulnerability_card(detail):
         vuln = detail.vulnerability
+        color = StreamlitReportRenderer.IMPACT_COLORS.get(vuln.impact, "#999999")
         
-        with st.container():
-            st.markdown(f"### {vuln.check}")
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown(f"**Impact:** {vuln.impact}")
-            with col2:
-                st.markdown(f"**Confidence:** {vuln.confidence}")
-            
-            # TODO 업로드 된 코드 보이게 혹은 아예 해당 부분 삭제
-            if detail.code_locations:
-                st.markdown("**발견된 위치:**")
+
+
+        st.markdown(f"### <span style='color:{color}'>{vuln.check}</span>", unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"**Impact:** <span style='color:{color}; font-weight:600'>{vuln.impact}</span>", unsafe_allow_html=True)
+        with col2:
+            st.markdown(f"**Confidence:** {vuln.confidence}")
+
+        if detail.code_locations:
+            with st.expander("발견된 위치", expanded=True):
                 for location in detail.code_locations:
                     st.code(location)
-            
-            st.markdown("**취약점 설명:**")
-            st.write(detail.technical_explanation)
-            
-            st.markdown("**맞춤형 설명:**")
-            st.write(detail.personalized_explanation)
-            
-            # 참조 링크
+
+        st.markdown("**취약점 설명:**")
+        st.write(detail.technical_explanation)
+
+        st.markdown("**맞춤형 설명:**")
+        st.write(detail.personalized_explanation)
+
+        if detail.reference_links:
             st.markdown("**참조 링크:**")
             for link in detail.reference_links:
-                st.markdown(f"- [{link}]({link})")
-            
-            st.markdown("---")
+                st.markdown(f"- 🔗 [{link}]({link})")
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # ==================== Application Layer ====================
 
@@ -346,11 +520,32 @@ class ReportService:
         # Streamlit 렌더링
         #  FIXME 추후 빠질지도
         self._render_complete_report(security_score, summary, vulnerability_details)
-    
-    def _render_complete_report(self, security_score: SecurityScore, summary: ReportSummary, vulnerability_details: List[VulnerabilityDetail]):
-        st.set_page_config(page_title="스마트 컨트랙트 보안 취약점 분석 보고서", layout="wide")
 
-        st.title("[Smart Secure] Smart Contract 보안 취약점 분석 Report ")
+
+        
+    def _render_complete_report(self, security_score: SecurityScore, summary: ReportSummary, vulnerability_details: List[VulnerabilityDetail]):
+        st.set_page_config(
+            page_title="스마트 컨트랙트 보안 보고서",
+            layout="wide",
+            initial_sidebar_state="expanded"
+        )
+
+        st.markdown("""
+            <style>
+            .main {
+                background-color: #f4f4f4;
+                padding: 20px;
+                border-radius: 10px;
+            }
+            .report-title {
+                font-size: 32px;
+                font-weight: bold;
+                color: #2c3e50;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+        st.title("[SmartSecure] 스마트 컨트랙트 보안 취약점 분석 리포트")
         st.markdown("---")
         
         self.renderer.render_security_score_section(security_score)
