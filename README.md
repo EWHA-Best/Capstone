@@ -34,6 +34,7 @@ Slither 기반 보안 검사 결과를 OpenAI GPT-4 API로 해석하여 비전�
 ```
 
 Capstone/
+├── Slither 결과 test set   # Slither 실험용 분석 결과 테스트셋
 ├── .gitignore
 ├── GroundRule.md          # 팀 그라운드룰
 ├── README.md              # 프로젝트 설명 문서
